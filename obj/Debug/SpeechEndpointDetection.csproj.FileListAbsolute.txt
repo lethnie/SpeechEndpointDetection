@@ -1,0 +1,6 @@
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\bin\Debug\SpeechEndpointDetection.dll
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\bin\Debug\SpeechEndpointDetection.pdb
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\obj\Debug\SpeechEndpointDetection.dll
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\obj\Debug\SpeechEndpointDetection.pdb
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\bin\Debug\SpeechEndpointDetection.XML
+G:\Учёба\Курс номеррр последнийс\Диплом\SpeechEndpointDetection\SpeechEndpointDetection\obj\Debug\SpeechEndpointDetection.csprojResolveAssemblyReference.cache

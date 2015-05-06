@@ -1,0 +1,722 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpeechEndpointDetection</name>
+    </assembly>
+    <members>
+        <member name="M:SpeechEndpointDetection.AudioCreation.GetNewSignal(System.Double[],System.Int32,SpeechEndpointDetection.Noises.Noises)">
+            <summary>
+            Получение нового сигнала на основе существующего с добавлением шума
+            </summary>
+            <param name="signal">Текущий сигнал</param>
+            <param name="snr">Требуемое отношение мощности текущего сигнала к мощности шума</param>
+            <param name="noiseType">Тип шума</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.AudioCreation.GetNewSignal(System.Double[],System.Int32,System.IO.Stream)">
+            <summary>
+            Получение нового сигнала на основе существующего с добавлением другого сигнала
+            </summary>
+            <param name="signal">Текущий сигнал</param>
+            <param name="snr">Требуемое отношение мощности текущего сигнала к мощности второго сигнала</param>
+            <param name="newSignal">Добавляемый сигнал</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.AudioCreation.GetSignal(System.IO.Stream,System.Double@)">
+            <summary>
+            Чтение wav файла
+            </summary>
+            <param name="file"></param>
+            <param name="rms">Мощность возвращаемого сигнала</param>
+            <returns>Сигнал</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.w(System.Int32,System.Int32)">
+            <summary>
+            Вычисление поворачивающего модуля e^(-i*2*PI*k/N)
+            </summary>
+            <param name="k"></param>
+            <param name="N"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.FastFourierTransform(System.Double[])">
+            <summary>
+            Возвращает спектр сигнала
+            </summary>
+            <param name="x">Массив значений сигнала. Количество значений должно быть степенью 2</param>
+            <returns>Массив со значениями спектра сигнала</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.FastFourierTransformMagn(System.Double[])">
+            <summary>
+            Возвращает спектр сигнала
+            </summary>
+            <param name="x">Массив значений сигнала. Количество значений должно быть степенью 2</param>
+            <returns>Массив со значениями магнитуд спектра сигнала</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.GetNewLength(System.Int32)">
+            <summary>
+            Расчёт длины массива со значениями спектра
+            </summary>
+            <param name="length">Длина массива с отсчётами сигнала</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.IsPowerOfTwo(System.UInt32)">
+            <summary>
+            Проверка, является ли число степенью двойки
+            </summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.FastFourierTransform(System.Numerics.Complex[])">
+            <summary>
+            Возвращает спектр сигнала
+            </summary>
+            <param name="x">Массив значений сигнала. Количество значений должно быть степенью 2</param>
+            <returns>Массив со значениями спектра сигнала</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.GeometricMean(System.Double[])">
+            <summary>
+            Считает среднее геометрическое амплитуд последовательности комплексных чисел
+            </summary>
+            <param name="s">Последовательность комплексных чисел</param>
+            <returns>Среднее геометрическое последовательности комплексных чисел</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.ArithmeticMean(System.Double[])">
+            <summary>
+            Считает среднее арифметическое амплитуд последовательности комплексных чисел
+            </summary>
+            <param name="s">Последовательность комплексных чисел</param>
+            <returns>Среднее арифметическое последовательности комплексных чисел</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.GetSFM(System.Double[])">
+            <summary>
+            Получает значение SFM для спектра сигнала
+            </summary>
+            <param name="s">спектр сигнала</param>
+            <returns>SFM</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.iw(System.Int32,System.Int32)">
+            <summary>
+            Вычисление поворачивающего модуля e^(i*2*PI*k/N)
+            </summary>
+            <param name="k"></param>
+            <param name="N"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.ArithmeticMean(System.Double[][],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Нахождение среднего арифметического значений спектра
+            </summary>
+            <param name="s">Спектр</param>
+            <param name="wk">Частота</param>
+            <param name="m">Конечный отсчёт сигнала</param>
+            <param name="R">Количество отсчётов, для которых считается среднее арифметическое</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.MathOperations.GeometricMean(System.Double[][],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Нахождение среднего геометрического значений спектра
+            </summary>
+            <param name="s">Спектр</param>
+            <param name="wk">Частота</param>
+            <param name="m">Конечный отсчёт сигнала</param>
+            <param name="R">Количество отсчётов, для которых считается среднее геометрическое</param>
+            <returns></returns>
+        </member>
+        <member name="T:SpeechEndpointDetection.WaveReader">
+            <summary>
+            Чтение аудиодорожки, определение участков с речью
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.chunkID">
+            <summary>
+            Содержит символы "RIFF". Является началом RIFF-цепочки
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fileSize">
+            <summary>
+            Oставшийся размер цепочки, начиная с этой позиции
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.riffType">
+            <summary>
+            Содержит символы "WAVE"
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtID">
+            <summary>
+            Содержит символы "fmt "
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtSize">
+            <summary>
+            Oставшийся размер подцепочки, начиная с этой позиции
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtCode">
+            <summary>
+            Аудиоформат
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.channels">
+            <summary>
+            Количество каналов. Моно = 1, Стерео = 2
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.sampleRate">
+            <summary>
+            Частота дискретизации. 8000 Гц, 44100 Гц и т.д.
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtAvgBPS">
+            <summary>
+            Количество байт, переданных за секунду воспроизведения
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtBlockAlign">
+            <summary>
+            Количество байт для одного сэмпла, включая все каналы
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.bitDepth">
+            <summary>
+            Количество бит в сэмпле
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.fmtExtraSize">
+            <summary>
+            Дополнительные поля
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.dataID">
+            <summary>
+            Содержит символы "data" 
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.dataSize">
+            <summary>
+            Количество байт в области данных
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.data">
+            <summary>
+            Непосредственно WAV-данные
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.sChannel">
+            <summary>
+            Каналы
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.duration">
+            <summary>
+            Продолжительность аудио в секундах
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.filename">
+            <summary>
+            Имя файла
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.WaveReader.header">
+            <summary>
+            Заголовок для речевых файлов
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.GetDuration">
+            <summary>
+            Продолжительность аудио в секундах
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.GetSampleRate">
+            <summary>
+            Частота дискретизации
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.GetSignal">
+            <summary>
+            Получение сигнала заданного аудио
+            </summary>
+            <returns>Сигнал</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.CreateWaveFile(System.String,System.Int32,System.Int32)">
+            <summary>
+            Создание нового аудиофайла-фрагмента текущего
+            </summary>
+            <param name="outFile">Имя создаваемого файла</param>
+            <param name="start">Время начала фрагмента (мс)</param>
+            <param name="finish">Время окончания фрагмента (мс)</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.ReadWavfile">
+            <summary>
+            Чтение исходного файла аудио
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.SetHeader">
+            <summary>
+            Заготовка заголовка для речевых файлов
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.WaveReader.GetHeaderByteArray(System.Int32)">
+            <summary>
+            Получение заголовка wav файла
+            </summary>
+            <param name="dSize">Размер области данных</param>
+            <returns>Массив байтов, соответствующий заголовку</returns>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.minFalseFrames">
+            <summary>
+            Минимальное число кадров, помеченных неречевыми
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.minTrueFrames">
+            <summary>
+            Минимальное число кадров, помеченных речевыми
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.silentFrames">
+            <summary>
+            Количество начальных кадров, считающихся неречевыми, используемых для определения пороговых значений характеристик
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.frameSize">
+            <summary>
+            Количество миллисекунд в одном кадре
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.shiftSize">
+            <summary>
+            Количество миллисекунд в одном сдвиге
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Detection.parameters">
+            <summary>
+            Параметры и характеристики выбранного аудио
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.#ctor(SpeechEndpointDetection.Algorithms.Parameters)">
+            <summary>
+            
+            </summary>
+            <param name="par">Параметры и характеристики выбранного аудио</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.#ctor(SpeechEndpointDetection.Algorithms.Parameters,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="par">Параметры и характеристики выбранного аудио</param>
+            <param name="silentFrames">Количество начальных кадров, считающихся неречевыми, используемых для определения пороговых значений характеристик</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.#ctor(SpeechEndpointDetection.Algorithms.Parameters,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="par">Параметры и характеристики выбранного аудио</param>
+            <param name="minFalseFrames">Минимальное число кадров, помеченных неречевыми</param>
+            <param name="minTrueFrames">Минимальное число кадров, помеченных речевыми</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.#ctor(SpeechEndpointDetection.Algorithms.Parameters,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="par">Параметры и характеристики выбранного аудио</param>
+            <param name="silentFrames"> Количество начальных кадров, считающихся неречевыми, используемых для определения пороговых значений характеристик</param>
+            <param name="minFalseFrames">Минимальное число кадров, помеченных неречевыми</param>
+            <param name="minTrueFrames">Минимальное число кадров, помеченных речевыми</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.BorderCorrection(System.Boolean[])">
+            <summary>
+            Корректировка границ выделенных речевых фрагментов
+            </summary>
+            <param name="frames"></param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.GetBounds(System.Boolean[])">
+            <summary>
+            Преобразование массива, определяющего принадлежность кадров к речи, к набору границ речи
+            </summary>
+            <param name="speech">Соответствие кадров речи</param>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmEnergyZCR">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии сигнала и среднего числа пересечений нуля
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmEnergySFMFrequency">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии сигнала, доминирующей частоты и меры спектральной плоскостности
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmLTSV">
+            <summary>
+            Алгоритм определения фрагментов речи на основе меры изменчивости сигнала
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmLSFM">
+            <summary>
+            Алгоритм определения фрагментов речи на основе долгосрочной меры спектральной плоскостности
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmMeanDelta">
+            <summary>
+            Алгоритм определения фрагментов речи на основе усреднённой спектральной дельта-функции автокорреляции (Mean-Delta)
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergy">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergyZCR">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера и среднего числа пересечений нуля
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergySFMMeanDeltaZCR">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера, меры спектральной плоскостности, усреднённой спектральной дельта-функции автокорреляции (Mean-Delta) и среднего числа пересечений нуля
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmEnergyEntropy">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии и энтропии
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergyLSFMFrequency">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера, долгосрочной меры спектральной плоскостности и доминирующей частоты
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergyLSFMFrequencyLTSVMeanDelta">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера, долгосрочной меры спектральной плоскостности, доминирующей частоты, меры изменчивости сигнала и характеристики Mean Delta
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.AlgorithmTeagerEnergyLSFMFrequencyLTSV">
+            <summary>
+            Алгоритм определения фрагментов речи на основе энергии Тиджера, долгосрочной меры спектральной плоскостности, доминирующей частоты и меры изменчивости сигнала
+            </summary>
+            <returns>Границы речи (в миллисекундах)</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Detection.GetThresholds(System.Double[],System.Double[])">
+            <summary>
+            Обновление пороговых значений
+            </summary>
+            <param name="noise">Буфер шума</param>
+            <param name="speech">Буфер речи</param>
+            <returns>Новые значения верхнего и нижнего порогов</returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Noises.NoisesInfo.GetNoiseStream(SpeechEndpointDetection.Noises.Noises)">
+            <summary>
+            Возвращает аудио с шумом
+            </summary>
+            <param name="noise">Тип шума</param>
+            <returns></returns>
+        </member>
+        <member name="T:SpeechEndpointDetection.Results">
+            <summary>
+            Характеристики точности полученных результатов
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.#ctor(System.Double,System.Collections.Generic.List{System.Int32[]},System.Collections.Generic.List{System.Int32[]})">
+            <summary>
+            
+            </summary>
+            <param name="duration">Продолжительность аудио (в секундах)</param>
+            <param name="realSpeech">Границы реальной речи</param>
+            <param name="currentSpeech">Полученные в результате выполнения алгоритма границы речи</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.GetFullAccuracy">
+            <summary>
+            Абсолютная точность: отношение количества правильных решений к количеству всех принимаемых решений
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.GetNonSpeechHitRate">
+            <summary>
+            Точность принятия решений в пользу отсутствия речи. Отношение правильных решений об отсутствии речи к необходимому числу таких решений
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.GetSpeechHitRate">
+            <summary>
+            Точность принятия решений в пользу присутствия речи. Отношение правильных решений о наличии речи к необходимому числу таких решений
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.GetBeginningErrors">
+            <summary>
+            Ошибки в начале речи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.GetEndErrors">
+            <summary>
+            Ошибки в конце речи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.TypeIErrors">
+            <summary>
+            Ошибки первого рода: неверное отнесение к речи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Results.TypeIIErrors">
+            <summary>
+            Ошибки второго рода: неверное отнесение к не-речи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.duration">
+            <summary>
+            длительность аудио в секундах
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.sampleRate">
+            <summary>
+            частота дискретизации
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.fullSignal">
+            <summary>
+            полный сигнал, не разбитый на кадры
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.wSignal">
+            <summary>
+            разбитый на кадры сигнал с наложенным окном
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.signal">
+            <summary>
+            разбитый на кадры сигнал
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.samplesInMs">
+            <summary>
+            количество отсчётов в миллисекунде
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.sizeOfFrame">
+            <summary>
+            количество отсчётов в кадре
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.sizeOfShift">
+            <summary>
+            количество отсчётов в сдвиге
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.frSize">
+            <summary>
+            длина кадра в миллисекундах
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.shSize">
+            <summary>
+            длина сдвига в миллисекундах
+            </summary>
+        </member>
+        <member name="F:SpeechEndpointDetection.Algorithms.Parameters.numOfFrames">
+            <summary>
+            количество кадров в сигнале
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.#ctor(System.Double[],System.Double,System.Int32)">
+            <summary>
+            По умолчанию: размер кадра 20 мс, размер смещения - 10 мс, окно - прямоугольное, M = 3, R = 30
+            </summary>
+            <param name="sign">Исходный сигнал</param>
+            <param name="dur">Длительность аудио (в секундах)</param>
+            <param name="sRate">Частота дискретизации</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.#ctor(System.Double[],System.Double,System.Int32,System.Int32)">
+            <summary>
+            По умолчанию: размер кадра 20 мс, размер смещения - 10 мс, M = 3, R = 30
+            </summary>
+            <param name="sign">Исходный сигнал</param>
+            <param name="dur">Длительность аудио (в секундах)</param>
+            <param name="sRate">Частота дискретизации</param>
+            <param name="wType">Вид используемого окна: 0 - окно Ханна, 1 - Хэмминга, -1 - без окна</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.#ctor(System.Double[],System.Double,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            По умолчанию: M = 3, R = 30
+            </summary>
+            <param name="sign">Исходный сигнал</param>
+            <param name="dur">Длительность аудио (в секундах)</param>
+            <param name="sRate">Частота дискретизации</param>
+            <param name="wType">Вид используемого окна: 0 - окно Ханна, 1 - Хэмминга, -1 - без окна</param>
+            <param name="fSize">Размер кадра (в миллисекундах)</param>
+            <param name="sSize">Размер смещения (в миллисекундах)</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.#ctor(System.Double[],System.Double,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="sign">Исходный сигнал</param>
+            <param name="dur">Длительность аудио (в секундах)</param>
+            <param name="sRate">Частота дискретизации</param>
+            <param name="wType">Вид используемого окна: 0 - окно Ханна, 1 - Хэмминга, -1 - без окна</param>
+            <param name="fSize">Размер кадра (в миллисекундах)</param>
+            <param name="sSize">Размер смещения (в миллисекундах)</param>
+            <param name="m">Размер окна для преобразования Уэлча-Бартлетта</param>
+            <param name="r">Размер окна для долгосрочных характеристик</param>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetFrameSizeInSamples">
+            <summary>
+            Получение количества отсчётов в одном кадре
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetShiftSizeInSamples">
+            <summary>
+            Получение количества отсчётов в одном сдвиге
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetFrameSizeInMs">
+            <summary>
+            Получение количества миллисекунд в одном кадре
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetShiftSizeInMs">
+            <summary>
+            Получение количества миллисекунд в одном сдвиге
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetSignal(System.Int32)">
+            <summary>
+            Получение разделённого по кадрам сигнала
+            </summary>
+            <param name="wtype">Вид используемого окна: 0 - окно Ханна, 1 - Хэмминга, -1 - без окна</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetWindow(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="N"></param>
+            <param name="type">0 - Hanning, 1 - Hamming</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetSignal">
+            <summary>
+            Получение исходного сигнала, не разделённого на кадры
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetEnergy">
+            <summary>
+            Получение энергии сигнала для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetZeroCrossingRate">
+            <summary>
+            Получение среднего числа пересечений нуля сигналом для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.FFT">
+            <summary>
+            Выполнение быстрого преобразования Фурье для сигнала, получение меры спектральной плоскостности и доминирующих частот
+            </summary>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetFrequencyCorrection(System.Int32)">
+            <summary>
+            Получение коэффициента для перевода порядкового номера частоты в спектре в реальную частоту
+            </summary>
+            <param name="spectrumLength">Длина спектра</param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetSpectrum">
+            <summary>
+            Получение спектра сигнала
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetSpectralFlatnessMeasure">
+            <summary>
+            Получение меры спектральной плоскостности для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.WelchBartlett(System.Double[][])">
+            <summary>
+            Преобразование Бартлетта-Уэлча
+            </summary>
+            <param name="signal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.LFunction(System.Int32,System.Int32,System.Double[][])">
+            <summary>
+            Получение значений для характеристики LSFM
+            </summary>
+            <param name="m"></param>
+            <param name="K"></param>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetLongTermSpectralFlatnessMeasure">
+            <summary>
+            Получение долгосрочной меры спектральной плоскостности для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.KsiFunction(System.Int32,System.Int32,System.Double[][])">
+            <summary>
+            Получение значений для характеристики LTSV
+            </summary>
+            <param name="m"></param>
+            <param name="k"></param>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetLongTermSignalVariability">
+            <summary>
+            Получение долгосрочной меры изменчивости сигнала
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetEnergyEntropy">
+            <summary>
+            Получение характеристики Energy Entropy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetTeagerEnergy">
+            <summary>
+            Энергия Тиджера для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetMeanDelta">
+            <summary>
+            Получение характеристики Mean Delta
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SpeechEndpointDetection.Algorithms.Parameters.GetFrequency">
+            <summary>
+            Доминирующая частота для каждого кадра
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
